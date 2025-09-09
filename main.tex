@@ -1,0 +1,58 @@
+% !TEX program = xelatex
+\documentclass{resume}
+
+% Load user-editable content (do not edit main.tex; edit files under content/)
+\input{content/basic.tex}
+\input{content/education.tex}
+\input{content/work.tex}
+\input{content/research.tex}
+\input{content/honors.tex}
+\input{content/practice.tex}
+\input{content/skills.tex}
+\input{content/self.tex}
+\input{content/objective.tex}
+\input{content/other.tex}
+
+% Use profile macros
+\name{\ProfileName}
+\contact{\ProfileContact \quad \ProfileTarget}
+\links{}
+% If user set \ProfilePhoto in profile.tex, uncomment to show
+\ifdefined\ProfilePhoto
+  \photo[2.6cm]{\ProfilePhoto}
+\fi
+
+\begin{document}
+\resumetitle
+
+% Basic info block (optional; enable in content/basic.tex by setting \ShowBasicInfotrue)
+\ifShowBasicInfo
+\section*{基本信息}
+\begin{tabularx}{\linewidth}{@{}lX@{}}
+姓名: & \ProfileName \\
+性别: & \ProfileGender \\
+年龄: & \ProfileAge \\
+联系方式: & \ProfileContact \\
+意向岗位: & \ProfileTarget \\
+\end{tabularx}
+\fi
+
+% Sections in priority order: Education > Work > Research/Projects
+\section*{教育背景}
+\EducationSection
+
+\section*{工作/实习经历}
+\WorkSection
+
+\section*{科研/项目经历}
+\ResearchSection
+
+% Additional sections (honors, practice, skills, self, objective, other)
+\HonorsSection
+\PracticeSection
+\SkillsSection
+\SelfSection
+\ObjectiveSection
+\OtherSection
+
+\end{document}

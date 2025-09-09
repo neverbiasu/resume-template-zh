@@ -1,0 +1,122 @@
+% ============================================================================
+% resume.cls - Simple clean resume class (XeLaTeX)
+% Author: neverbiasu
+% Date: 2025-09-09
+% ----------------------------------------------------------------------------
+% Features:
+% - Clean layout, A4, 11pt
+% - Prioritized sections: Education > Work > Research/Projects (by template)
+% - Clickable hyperlinks (hyperref)
+% - Avatar support via \photo[<width>]{<path>}
+% - Simple \entry macro for items
+% - Requires XeLaTeX (CJK-ready); defaults to common Windows fonts
+% ============================================================================
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesClass{resume}[2025/09/09 v1.0 Simple Resume Class]
+
+% Base class
+\LoadClass[11pt,a4paper]{article}
+
+% Require XeLaTeX (for CJK & fontspec)
+\RequirePackage{ifxetex}
+\ifxetex\else
+  \PackageError{resume}{This class requires XeLaTeX}{Please compile with XeLaTeX (xelatex).}
+\fi
+
+% Layout & essentials
+\RequirePackage[margin=1.8cm]{geometry}
+\RequirePackage{graphicx}
+\RequirePackage{xeCJK}
+\RequirePackage{fontspec}
+\RequirePackage{hyperref}
+\RequirePackage{enumitem}
+\RequirePackage{xcolor}
+\RequirePackage{titlesec}
+\RequirePackage{tabularx}
+
+% Fonts (adjust in README if unavailable)
+% Western fonts
+\setmainfont{Times New Roman}
+\setsansfont{Arial}
+\setmonofont{Consolas}
+% CJK fonts (Windows defaults; change if needed)
+\setCJKmainfont{SimSun}
+\setCJKsansfont{Microsoft YaHei}
+
+% Hyperref setup
+\hypersetup{
+  colorlinks=true,
+  linkcolor=black,
+  urlcolor=blue,
+  citecolor=black
+}
+
+% Page look & spacing
+\pagestyle{empty}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{3pt}
+\setlist[itemize]{noitemsep, topsep=2pt, left=0pt}
+
+% Section style
+\titleformat{\section}{\large\bfseries}{\thesection}{0.5em}{}
+\titlespacing*{\section}{0pt}{8pt}{4pt}
+
+% Header (name + contact + links + optional photo)
+\makeatletter
+\newcommand{\name}[1]{\def\@name{#1}}
+\newcommand{\contact}[1]{\def\@contact{#1}}
+\newcommand{\links}[1]{\def\@links{#1}}
+% \photo[<width>]{<path>}
+\newcommand{\photo}[2][3cm]{\def\@photosize{#1}\def\@photo{#2}}
+
+\newcommand{\resumetitle}{%
+  \begin{minipage}[t]{0.72\textwidth}
+    {\LARGE\bfseries \@name\par}
+    \vspace{4pt}
+    {\normalsize \@contact\par}
+    {\normalsize \@links\par}
+  \end{minipage}%
+  \hfill
+  \begin{minipage}[t]{0.23\textwidth}
+    \raggedleft
+    \ifdefined\@photo
+      \includegraphics[width=\@photosize,keepaspectratio]{\@photo}
+    \fi
+  \end{minipage}\par
+  \vspace{6pt}\hrule\vspace{10pt}
+}
+\makeatother
+
+% Entry macro: \entry{Title}{Org}{Location}{Dates}{\item ... \item ...}
+\newcommand{\entry}[5]{%
+  \textbf{#1} \hfill {\small #4}\par
+  \textbf{#2}, #3\par
+  \begin{itemize}[leftmargin=*]
+    #5
+  \end{itemize}
+  \vspace{2pt}
+}
+
+% Basic info display toggle: users can enable detailed basic info block in main.tex
+% by calling \ShowBasicInfotrue in their content file (e.g., content/basic.tex).
+\newif\ifShowBasicInfo
+\ShowBasicInfofalse
+
+\providecommand{\EducationSection}{\section*{Education}}
+\providecommand{\ExperienceSection}{\section*{Experience}}
+\providecommand{\SkillsSection}{\section*{Skills}}
+\providecommand{\ProjectSection}{\section*{Projects}}
+\providecommand{\PublicationSection}{\section*{Publications}}
+\providecommand{\AwardSection}{\section*{Awards}}
+\providecommand{\ContactInfo}{\section*{Contact}}
+
+% Backward/alternative names used by content/*.tex
+\providecommand{\WorkSection}{\section*{Work}}
+\providecommand{\ResearchSection}{\section*{Research}}
+\providecommand{\HonorsSection}{\section*{Honors}}
+\providecommand{\PracticeSection}{\section*{Practice}}
+\providecommand{\SelfSection}{\section*{Self}}
+\providecommand{\ObjectiveSection}{\section*{Objective}}
+\providecommand{\OtherSection}{\section*{Other}}
+
+% End of class

@@ -1,0 +1,23 @@
+# LaTeX build artifacts
+*.aux
+*.log
+*.out
+*.toc
+*.synctex.gz
+*.fls
+*.fdb_latexmk
+*.xdv
+*.nav
+*.snm
+*.bbl
+*.blg
+
+# OS/editor
+.DS_Store
+Thumbs.db
+*.code-workspace
+.vscode/
+
+# PDFs (keep or ignore as you wish)
+# Uncomment next line to ignore generated PDFs
+# *.pdf
