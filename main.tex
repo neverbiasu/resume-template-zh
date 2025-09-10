@@ -15,44 +15,49 @@
 
 % Use profile macros
 \name{\ProfileName}
-\contact{\ProfileContact \quad \ProfileTarget}
 \links{}
 % If user set \ProfilePhoto in profile.tex, uncomment to show
-\ifdefined\ProfilePhoto
-  \photo[2.6cm]{\ProfilePhoto}
-\fi
+% 显示头像：先检查宏是否定义且文件存在，避免找不到图片导致编译失败
+% Re-enable avatar inclusion if the image exists. The document-level \PrintProfilePhoto
+% will be defined only when the file is present, avoiding class-level failures.
 
+\name{}
+\contact{}
 \begin{document}
 \resumetitle
 
-% Basic info block (optional; enable in content/basic.tex by setting \ShowBasicInfotrue)
-\ifShowBasicInfo
-\section*{基本信息}
-\begin{tabularx}{\linewidth}{@{}lX@{}}
-姓名: & \ProfileName \\
-性别: & \ProfileGender \\
-年龄: & \ProfileAge \\
-联系方式: & \ProfileContact \\
-意向岗位: & \ProfileTarget \\
-\end{tabularx}
-\fi
+\BasicSection
+\vspace{6pt}\hrule\vspace{6pt}
 
 % Sections in priority order: Education > Work > Research/Projects
-\section*{教育背景}
 \EducationSection
+\vspace{6pt}\hrule\vspace{6pt}
 
-\section*{工作/实习经历}
 \WorkSection
+\vspace{6pt}\hrule\vspace{6pt}
 
 \section*{科研/项目经历}
 \ResearchSection
+\vspace{6pt}\hrule\vspace{6pt}
 
 % Additional sections (honors, practice, skills, self, objective, other)
 \HonorsSection
-\PracticeSection
+\vspace{6pt}\hrule\vspace{6pt}
+
+% \section*{志愿服务}
+% \PracticeSection
+% \vspace{6pt}\hrule\vspace{6pt}
+
 \SkillsSection
+\vspace{6pt}\hrule\vspace{6pt}
+
 \SelfSection
-\ObjectiveSection
-\OtherSection
+\vspace{6pt}\hrule\vspace{6pt}
+
+% 求职意向不展示（如果需要展示，可在 content/objective.tex 中启用）
+%\ObjectiveSection
+% \vspace{6pt}\hrule\vspace{6pt}
+
+% \OtherSection
 
 \end{document}
