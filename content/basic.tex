@@ -1,19 +1,73 @@
 % basic.tex - 基本信息（编辑此文件更新姓名、联系方式与意向）
-% 用途：存放姓名、联系方式、意向、头像等基本信息。默认示例为瓦豆鲁迪（Kirby）。
+% 用途：存放姓名、联系方式、意向、头像等基本信息。
+% 说明：主要字段放在下方的宏中。可选字段默认被注释，需时取消注释并填写。
+
+% ====== 必填 / 主要信息（请编辑） ======
 \newcommand{\ProfileName}{瓦豆鲁迪 (Kirby)}
-\newcommand{\ProfileGender}{非二元性别}
-\newcommand{\ProfileAge}{未知}
-\newcommand{\ProfileContact}{邮箱：kirby@example.com\\ \href{https://kirby.fandom.com/wiki/Waddle_Dee}{个人主页}}
-\newcommand{\ProfileTarget}{意向：虚拟角色}
+\newcommand{\ProfilePhone}{138-0000-0000}
+\newcommand{\ProfileEmail}{kirby@example.com}
+% 联系方式宏（用于页眉与 resumetitle）
+\newcommand{\ProfileContact}{电话：\ProfilePhone\\ 邮箱：\href{mailto:\ProfileEmail}{\ProfileEmail}}
+% 求职意向（示例：虚构角色，示例用途）
+\newcommand{\ProfileTarget}{虚拟角色（示例）}
+% 申请研究/方向（示例）
+\newcommand{\ProfileDirection}{星之任务与救援}
+
+% ====== 可选信息（默认注释——需要时取消注释并填写） ======
+% 个人网站 / 作品集（可选）
+% \newcommand{\ProfileWebsite}{https://www.github.com}
+% GitHub（可选）
+% \newcommand{\ProfileGitHub}{https://github.com/neverbiasu}
+% 现居地（可选）
+% \newcommand{\ProfileLocation}{上海市}
+% 籍贯（可选）
+% \newcommand{\ProfileHometown}{浙江杭州}
+% 出生年月（可选）
+% \newcommand{\ProfileDOB}{1995.08}
 
 % 如需显示头像，请在此处设置路径（相对工作区），例如：
+% 在本文件中取消下面一行的注释并设置路径（例如：assets/avatar.jpg）：
 % \newcommand{\ProfilePhoto}{assets/avatar.jpg}
+% 如果你的 avatar.png 文件损坏或不是有效的 PNG/JPG，会导致 xelatex 构建失败。
+% 将下面一行取消注释并替换为有效图片路径可显示头像：
+\newcommand{\ProfilePhoto}{assets/WaddleDee.png}
 
-% 说明：仅需编辑本文件和 content/ 目录下其他模块文件，
-% 不要修改 main.tex 或 resume.cls。
-% 
-% 去重说明：默认情况下 main.tex 会在顶部显示一条简短介绍（基于本文件的内容），
-% 若你想额外渲染“基本信息”表格（展示姓名/性别/年龄/联系方式/意向），
-% 在本文件中添加一行启用开关：
-% \ShowBasicInfotrue
-% 否则请保持默认（不启用）以避免重复信息。
+% ====== 渲染宏：在 main.tex 中调用 \BasicSection ======
+% 名称大号加粗，联系方式在同一行，下面列出求职意向与申请方向。
+\newcommand{\BasicSection}{%
+	% Layout: left = name/info (wide), right = photo (narrow)
+	\begin{minipage}[t]{0.80\textwidth}
+		{\LARGE\bfseries \ProfileName\par}
+		\vspace{4pt}
+		{\normalsize 电话：\ProfilePhone \quad 邮箱：\href{mailto:\ProfileEmail}{\ProfileEmail}\par}
+		% 可选：显示 GitHub / 网站（只有当宏被定义且未注释时显示）
+		\ifdefined\ProfileGitHub
+			{\normalsize GitHub：\href{\ProfileGitHub}{\ProfileGitHub}\par}
+		\fi
+		\ifdefined\ProfileWebsite
+			{\normalsize 个人网站：\href{\ProfileWebsite}{\ProfileWebsite}\par}
+		\fi
+		\vspace{6pt}
+		{\normalsize \textbf{求职意向：} \ProfileTarget \quad \textbf{申请方向：} \ProfileDirection\par}
+		% 可选信息（现居地 / 籍贯 / 出生年月）
+		\ifdefined\ProfileLocation
+			\vspace{4pt}{\normalsize 现居地：\ProfileLocation\par}
+		\fi
+		\ifdefined\ProfileHometown
+			{\normalsize 籍贯：\ProfileHometown\par}
+		\fi
+		\ifdefined\ProfileDOB
+			{\normalsize 出生年月：\ProfileDOB\par}
+		\fi
+	\end{minipage}\hfill
+	\begin{minipage}[t]{0.18\textwidth}
+		\raggedleft
+		% Photo slot: safe include on document compile
+		\IfFileExists{\ProfilePhoto}{%
+			\includegraphics[width=\linewidth,keepaspectratio]{\ProfilePhoto}
+		}{% if not exist, leave blank
+		}
+	\end{minipage}
+}
+
+% 额外说明：可选信息默认注释，不会显示；若希望开启某一项，取消对应行的注释并填写内容即可。
