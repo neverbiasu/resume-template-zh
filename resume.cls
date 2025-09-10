@@ -69,21 +69,13 @@
 % \photo[<width>]{<path>}
 \newcommand{\photo}[2][3cm]{\def\@photosize{#1}\def\@photo{#2}}
 
+% Hook for printing photo: default does nothing. The main document may redefine
+% \PrintProfilePhoto after checking file existence to actually includegraphics
+\newcommand{\PrintProfilePhoto}{}
+
 \newcommand{\resumetitle}{%
-  \begin{minipage}[t]{0.72\textwidth}
-    {\LARGE\bfseries \@name\par}
-    \vspace{4pt}
-    {\normalsize \@contact\par}
-    {\normalsize \@links\par}
-  \end{minipage}%
-  \hfill
-  \begin{minipage}[t]{0.23\textwidth}
-    \raggedleft
-    \ifdefined\@photo
-      \includegraphics[width=\@photosize,keepaspectratio]{\@photo}
-    \fi
-  \end{minipage}\par
-  \vspace{6pt}\hrule\vspace{10pt}
+  {\normalsize \@links\par}
+  % No horizontal rule or extra vertical space here; BasicSection handles spacing.
 }
 \makeatother
 
