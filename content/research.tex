@@ -1,9 +1,19 @@
 % research.tex - 科研或项目经历（编辑此文件）
 % 用途：列出科研、项目或课题，包含研究内容、方法与成果等要点。
 \renewcommand{\ResearchSection}{%
-  \entry{项目：星之存档检索与复原}{Dream Lab}{Dream Land}{2020 -- 2022}{%
-    \item 研究内容：利用记忆碎片重建冒险记录，提出拼接模型
-    \item 方法：结合检索与生成模型进行故事片段拼接
-    \item 成果：片段拼接准确率提升 18\%（从 62\% 提升到 80\%），并完成 3 次内部演示
+  \section*{科研/项目经历}
+  \entry{可控人脸风格化}{负责人}{线上和线下}{2024.6 -- 2024.8}{%
+    \item 核心内容：在 Diffusion 模型中加入风格提取、人脸 ID 编码，并通过交叉注意力注入到 UNet，结合图像打标器与 ControlNet 实现高质量人脸风格迁移
+    \item 技术亮点：风格提取器、ID 编码器、VLM/LLM 文本特征与 ControlNet 选择策略，结合 SDXL 管道与 IP 适配器进行特征注入
+  \item 成果：Project Page 已部署于 GitHub Pages；已被 VINCI 接收（科研/竞赛收录）
+  }
+
+  \entry{启智序章——自动片头生成}{负责人}{校内（本科）}{2024.2 -- 2024.8}{%
+    \item 核心内容：开发自动生成课程介绍视频的软件，整合 LLMs、TTS、I2I 及 A2F 技术，使用 LangChain、ChatGLM3、GPTSoVITS、ComfyUI、SadTalker 等工具
+    \item 成果：项目获计算机设计大赛省一等奖并在后续推进国创立项
+  }
+  % 已发表论文（示例已发布链接）
+  \entry{国际会议论文}{Springer}{会议章节}{2024}{%
+    \item 论文链接：\url{https://link.springer.com/chapter/10.1007/978-981-99-7587-7_8}
   }
 }
