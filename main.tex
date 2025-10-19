@@ -1,17 +1,9 @@
 % !TEX program = xelatex
 \documentclass{resume}
 
-% Load user-editable content (do not edit main.tex; edit files under content/)
-\input{content/basic.tex}
-\input{content/education.tex}
-\input{content/work.tex}
-\input{content/research.tex}
-\input{content/honors.tex}
-\input{content/practice.tex}
-\input{content/skills.tex}
-\input{content/self.tex}
-\input{content/objective.tex}
-\input{content/other.tex}
+% NOTE: content files are loaded inside the document environment below to avoid
+% expanding user content in the preamble (which can introduce \item/section
+% tokens before \begin{document}).
 
 % Use profile macros
 \name{\ProfileName}
@@ -24,37 +16,51 @@
 \name{}
 \contact{}
 \begin{document}
-\resumetitle
+% Load user-editable content (do not edit main.tex; edit files under content/)
+\input{content/basic.tex}
+\input{content/education.tex}
+\input{content/work.tex}
+\input{content/research.tex}
+\input{content/projects.tex}
+\input{content/honors.tex}
+\input{content/practice.tex}
+\input{content/skills.tex}
+\input{content/self.tex}
+\input{content/objective.tex}
+\input{content/other.tex}
 
+\resumetitle
+\par\leavevmode
 \BasicSection
-\vspace{6pt}\hrule\vspace{6pt}
+\par\medskip\hrule\medskip
 
 % Sections in priority order: Education > Work > Research/Projects
 \EducationSection
-\vspace{6pt}\hrule\vspace{6pt}
+\medskip\hrule\medskip
 
-\WorkSection
-\vspace{6pt}\hrule\vspace{6pt}
+% \WorkSection
+% \vspace{6pt}\hrule\vspace{6pt}
 
-\section*{科研/项目经历}
 \ResearchSection
-\vspace{6pt}\hrule\vspace{6pt}
+\medskip\hrule\medskip
+
+% \ProjectSection
+% \vspace{6pt}\hrule\vspace{6pt}
 
 % Additional sections (honors, practice, skills, self, objective, other)
 \HonorsSection
-\vspace{6pt}\hrule\vspace{6pt}
+\medskip\hrule\medskip
 
 % \section*{志愿服务}
 % \PracticeSection
 % \vspace{6pt}\hrule\vspace{6pt}
 
 \SkillsSection
-\vspace{6pt}\hrule\vspace{6pt}
+\medskip\hrule\medskip
 
 \SelfSection
-\vspace{6pt}\hrule\vspace{6pt}
+\medskip\hrule\medskip
 
-% 求职意向不展示（如果需要展示，可在 content/objective.tex 中启用）
 %\ObjectiveSection
 % \vspace{6pt}\hrule\vspace{6pt}
 

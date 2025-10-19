@@ -24,7 +24,6 @@
 % 出生年月（可选）
 % 个人求职目标与方向
 \newcommand{\ProfileTarget}{博士生}
-\newcommand{\ProfileDirection}{计算机视觉、生成模型与产品化}
 \newcommand{\ProfileDirection}{计算机视觉、图像编辑、多模态生成}
 
 % 如需显示头像，请在此处设置路径（相对工作区），例如：
@@ -32,44 +31,22 @@
 % \newcommand{\ProfilePhoto}{assets/avatar.jpg}
 % 如果你的 avatar.png 文件损坏或不是有效的 PNG/JPG，会导致 xelatex 构建失败。
 % 将下面一行取消注释并替换为有效图片路径可显示头像：
-\newcommand{\ProfilePhoto}{assets/WaddleDee.png}
+\newcommand{\ProfilePhoto}{assets/portrait.jpg}
 
 % ====== 渲染宏：在 main.tex 中调用 \BasicSection ======
-% 名称大号加粗，联系方式在同一行，下面列出求职意向与申请方向。
+% 使用 tabularx 确保名称、联系方式、头像并排显示
 \newcommand{\BasicSection}{%
-	% Layout: left = name/info (wide), right = photo (narrow)
-	\begin{minipage}[t]{0.80\textwidth}
+	\begin{tabularx}{\textwidth}{X p{0.18\textwidth}}
 		{\LARGE\bfseries \ProfileName\par}
-		\vspace{4pt}
-		{\normalsize 电话：\ProfilePhone \quad 邮箱：\href{mailto:\ProfileEmail}{\ProfileEmail}\par}
-		% 可选：显示 GitHub / 网站（只有当宏被定义且未注释时显示）
-		\ifdefined\ProfileGitHub
-			{\normalsize GitHub：\href{\ProfileGitHub}{\ProfileGitHub}\par}
-		\fi
-		\ifdefined\ProfileWebsite
-			{\normalsize 个人网站：\href{\ProfileWebsite}{\ProfileWebsite}\par}
-		\fi
-		\vspace{6pt}
-		{\normalsize \textbf{求职意向：} \ProfileTarget \quad \textbf{申请方向：} \ProfileDirection\par}
-		% 可选信息（现居地 / 籍贯 / 出生年月）
-		\ifdefined\ProfileLocation
-			\vspace{4pt}{\normalsize 现居地：\ProfileLocation\par}
-		\fi
-		\ifdefined\ProfileHometown
-			{\normalsize 籍贯：\ProfileHometown\par}
-		\fi
-		\ifdefined\ProfileDOB
-			{\normalsize 出生年月：\ProfileDOB\par}
-		\fi
-	\end{minipage}\hfill
-	\begin{minipage}[t]{0.18\textwidth}
-		\raggedleft
-		% Photo slot: safe include on document compile
-		\IfFileExists{\ProfilePhoto}{%
-			\includegraphics[width=\linewidth,keepaspectratio]{\ProfilePhoto}
-		}{% if not exist, leave blank
-		}
-	\end{minipage}
+				{\normalsize 电话：\ProfilePhone \quad 邮箱：\href{mailto:\ProfileEmail}{\ProfileEmail}\par}
+				{\normalsize 网站：\href{\ProfileWebsite}{\ProfileWebsite} \quad GitHub：\href{\ProfileGitHub}{\ProfileGitHub}\par}
+				{\normalsize \textbf{求职意向：} \ProfileTarget \quad \textbf{申请方向：} \ProfileDirection\par}
+				&
+				\raggedleft\vspace*{-2.4\baselineskip}\IfFileExists{\ProfilePhoto}{%
+					\includegraphics[width=\linewidth,keepaspectratio,height=2.8cm]{\ProfilePhoto}%
+				}{}%
+	\end{tabularx}
+	\vspace{1pt}
 }
 
 % 额外说明：可选信息默认注释，不会显示；若希望开启某一项，取消对应行的注释并填写内容即可。

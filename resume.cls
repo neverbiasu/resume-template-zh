@@ -38,10 +38,21 @@
 % Western fonts
 \setmainfont{Times New Roman}
 \setsansfont{Arial}
-\setmonofont{Consolas}
-% CJK fonts (Windows defaults; change if needed)
-\setCJKmainfont{SimSun}
-\setCJKsansfont{Microsoft YaHei}
+\setmonofont{Menlo}  % macOS compatible monospace font
+% CJK fonts with BoldFont support for macOS/cross-platform
+\IfFontExistsTF{STSong}{%
+  \setCJKmainfont[BoldFont=STHeiti]{STSong}
+  \setCJKsansfont{STHeiti}
+}{%
+  \IfFontExistsTF{Songti SC}{%
+    \setCJKmainfont[BoldFont=Heiti SC]{Songti SC}
+    \setCJKsansfont{Heiti SC}
+  }{%
+    % Fallback to Windows fonts
+    \setCJKmainfont[BoldFont=SimHei]{SimSun}
+    \setCJKsansfont{Microsoft YaHei}
+  }
+}
 
 % Hyperref setup
 \hypersetup{
@@ -57,8 +68,10 @@
 \setlength{\parskip}{3pt}
 \setlist[itemize]{noitemsep, topsep=2pt, left=0pt}
 
-% Section style
+% Section style: make section titles bold (works for both English and CJK)
+% For CJK bold to work, ensure CJK fonts have BoldFont specified
 \titleformat{\section}{\large\bfseries}{\thesection}{0.5em}{}
+\titleformat{name=\section,numberless}{\large\bfseries}{}{0pt}{}
 \titlespacing*{\section}{0pt}{8pt}{4pt}
 
 % Header (name + contact + links + optional photo)
@@ -83,9 +96,13 @@
 \newcommand{\entry}[5]{%
   \textbf{#1} \hfill {\small #4}\par
   \textbf{#2}, #3\par
-  \begin{itemize}[leftmargin=*]
-    #5
-  \end{itemize}
+  \ifx&#5&%
+    % If #5 is empty, don't create itemize
+  \else
+    \begin{itemize}[leftmargin=*]
+      #5
+    \end{itemize}
+  \fi
   \vspace{2pt}
 }
 
